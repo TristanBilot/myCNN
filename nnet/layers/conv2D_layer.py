@@ -16,18 +16,22 @@ class Conv2DLayer(Layer):
         self._set_weights()
 
     def forward(self, X) -> np.ndarray:
+        """Applies `nb_filters` randomly generated trainable kernel convolutions
+        of size `kernel` with `strides` offset.
+        """
         N, h, w, c = X.shape
         k1, k2 = self.kernel
         s1, s2 = self.strides
         output_shape = (self.nb_filters, (h - 2 * (k1 // 2)) // s1, (w - 2 * (k2 // 2)) // s2, c)
         output = np.ndarray(output_shape)
 
-        for n in range(self.nb_filters):
-            for y, x in product(range(output_shape[1]), range(output_shape[2])):
-                for z in range(c):
-                    area = X[0, y * s1 : y * s1 + k1, x * s2 : x * s2 + k2, :]
-                    output[n, y, x, z] = np.sum(self.weights[z] * area)
-            self._set_weights()
+        for n in range(N):
+            for f in range(self.nb_filters): 
+                for y, x in product(range(output_shape[1]), range(output_shape[2])):
+                    for z in range(c):
+                        area = X[n, y * s1 : y * s1 + k1, x * s2 : x * s2 + k2, :]
+                        output[f, y, x, z] = np.sum(self.weights[z] * area)
+                self._set_weights()
         self.shape = output_shape
         return output
 
