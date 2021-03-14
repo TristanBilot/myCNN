@@ -2,7 +2,7 @@ import numpy as np
 from math import sqrt
 from .layer import Layer
 
-class DenseLayer(Layer):
+class Dense(Layer):
     def __init__(self, units: int, activation: str = ''):
         super().__init__(activation)
         self.units = units

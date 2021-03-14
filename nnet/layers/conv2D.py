@@ -3,7 +3,7 @@ from math import sqrt
 from itertools import product
 from .layer import Layer
 
-class Conv2DLayer(Layer):
+class Conv2D(Layer):
     def __init__(self, nb_filters, kernel=None, strides=(1, 1), activation: str = ''):
         super().__init__(activation)
         self.strides = strides

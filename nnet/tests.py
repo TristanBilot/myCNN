@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 import numpy as np
-from layers.conv2D_layer import Conv2DLayer
+from layers.conv2D import Conv2D
 from neural_net import NeuralNet
 import matplotlib.pyplot as plt
 import unittest

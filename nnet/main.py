@@ -2,9 +2,9 @@ import tensorflow as tf
 from tensorflow import keras
 
 import numpy as np
-from layers.conv2D_layer import Conv2DLayer
+from layers.conv2D import Conv2D
 from layers.flatten import Flatten
-from layers.dense_layer import DenseLayer
+from layers.dense import Dense
 from neural_net import NeuralNet
 import matplotlib.pyplot as plt
 
@@ -27,10 +27,10 @@ if __name__ == '__main__':
     X = np.einsum('abcd->adbc', X)
 
     nn = NeuralNet('')
-    nn.add(Conv2DLayer(10, (3, 3), activation='relu'))
-    nn.add(Conv2DLayer(32, (3, 3)))
+    nn.add(Conv2D(10, (3, 3), activation='relu'))
+    nn.add(Conv2D(32, (3, 3)))
     nn.add(Flatten(activation='sigmoid'))
-    nn.add(DenseLayer(64))
+    nn.add(Dense(64))
 
     nn.train(X, None, batch_size=2)
     nn.summary()
