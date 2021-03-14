@@ -21,8 +21,9 @@ class NeuralNet():
 
         for _ in range(epochs):
             for batch in self.batches:
+                X = batch.X
                 for layer in self.layers:
-                    X = layer.forward(batch.X)
+                    X = layer.forward(X)
                     X = Activation(layer.activation).forward(X)
                 # make backpropagation with X
 
