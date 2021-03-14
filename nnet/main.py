@@ -4,6 +4,7 @@ from tensorflow import keras
 import numpy as np
 from layers.conv2D_layer import Conv2DLayer
 from layers.flatten import Flatten
+from layers.dense_layer import DenseLayer
 import matplotlib.pyplot as plt
 
 def disp_image(img):
@@ -26,6 +27,8 @@ if __name__ == '__main__':
     Y = Conv2DLayer(10, (3, 3)).forward(X)
     print(Y.shape)
     Y = Flatten().forward(Y)
+    print(Y.shape)
+    Y = DenseLayer(64).forward(Y)
     print(Y.shape)
 
     # Y = np.einsum('adbc->abcd', Y)
