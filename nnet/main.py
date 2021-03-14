@@ -3,6 +3,7 @@ from tensorflow import keras
 
 import numpy as np
 from layers.conv2D_layer import Conv2DLayer
+from layers.flatten import Flatten
 import matplotlib.pyplot as plt
 
 def disp_image(img):
@@ -17,15 +18,16 @@ if __name__ == '__main__':
 
     X = train_images[0:10]
     X = X / 255.0
-    # disp_image(X[0])
-    # X = np.einsum('klij->kjli', X)
-    # X = np.random.randint(0, 10, (10, 32, 32, 3))
-    Y = Conv2DLayer(6, (3, 3)).forward(X)
-    Z = Conv2DLayer(10, (3, 3)).forward(Y)
-    Z2 = Conv2DLayer(12, (3, 3)).forward(Z)
-    # print(Y.shape)
-    # Y = np.einsum('akli->alik', Y)
-    for i in range(4):
-        disp_image(Z2[i])
-    # # print(Y)
-    # print(Z2.shape)
+    # for i in range(10):
+    #     disp_image(X[i])
+
+    X = np.einsum('abcd->adbc', X)
+    print(X.shape)
+    Y = Conv2DLayer(10, (3, 3)).forward(X)
+    print(Y.shape)
+    Y = Flatten().forward(Y)
+    print(Y.shape)
+
+    # Y = np.einsum('adbc->abcd', Y)
+    # for i in range(10):
+    #     disp_image(Y[i])
