@@ -1,8 +1,10 @@
 import numpy as np
 from math import sqrt
+from .layer import Layer
 
-class DenseLayer():
-    def __init__(self, units: int):
+class DenseLayer(Layer):
+    def __init__(self, units: int, activation: str = ''):
+        super().__init__(activation)
         self.units = units
         self.is_shape_initialized = False
 

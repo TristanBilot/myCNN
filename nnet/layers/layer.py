@@ -1,9 +1,9 @@
+import numpy as np
+
 class Layer():
-    def __init__(self):
-        pass
+    def __init__(self, activation: str):
+        self.activation = activation
 
-    def set_output_layer(self, layer):
+    def forward(self, X: np.ndarray):
         pass
-
-    def shape(self):
-        pass
+    

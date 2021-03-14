@@ -1,6 +1,7 @@
 from typing import Tuple, List
 from layers.layer import Layer
 from batch.batch import Batch
+from layers.activation import Activation
 from math import floor
 import numpy as np
 
@@ -8,6 +9,10 @@ class NeuralNet():
     def __init__(self, loss: str=None, layers: List[Layer]=[]):
         self.loss = loss
         self.layers = layers
+
+        for layer in layers:
+            if not isinstance(layer, Layer):
+                raise ValueError('The argument `layers` should containns only `Layer` objects, not ', type(layer))
 
     def train(self, X, Y, epochs=1, batch_size=5):
         # Split X in `batch_size` batch subarrays.
@@ -18,6 +23,7 @@ class NeuralNet():
             for batch in self.batches:
                 for layer in self.layers:
                     X = layer.forward(batch.X)
+                    X = Activation(layer.activation).forward(X)
                 # make backpropagation with X
 
     def evaluate(self, X, Y):

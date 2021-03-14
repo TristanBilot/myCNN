@@ -4,16 +4,17 @@ from itertools import product
 from .layer import Layer
 
 class Conv2DLayer(Layer):
-    def __init__(self, nb_filters, kernel=None, strides=(1, 1)):
+    def __init__(self, nb_filters, kernel=None, strides=(1, 1), activation: str = ''):
+        super().__init__(activation)
         self.strides = strides
         self.nb_filters = nb_filters
-                       
+
         if kernel != None and isinstance(kernel, (tuple, int)):
             self.kernel = kernel if isinstance(kernel, tuple) else (kernel, kernel)
         else:
             raise ValueError('The argument `kernel` should be set to a tuple or int value.')
 
-    def forward(self, X: np.ndarray) -> np.ndarray:
+    def forward(self, X) -> np.ndarray:
         """Applies `nb_filters` randomly generated trainable kernel convolutions
         of size `kernel` with `strides` offset.
         `X` should be in shape (N items from a batch, in-channels, height, width).
