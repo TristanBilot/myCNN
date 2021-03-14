@@ -5,6 +5,7 @@ import numpy as np
 from layers.conv2D_layer import Conv2DLayer
 from layers.flatten import Flatten
 from layers.dense_layer import DenseLayer
+from neural_net import NeuralNet
 import matplotlib.pyplot as plt
 
 def disp_image(img):
@@ -19,17 +20,27 @@ if __name__ == '__main__':
 
     X = train_images[0:10]
     X = X / 255.0
+
     # for i in range(10):
     #     disp_image(X[i])
 
     X = np.einsum('abcd->adbc', X)
-    print(X.shape)
-    Y = Conv2DLayer(10, (3, 3)).forward(X)
-    print(Y.shape)
-    Y = Flatten().forward(Y)
-    print(Y.shape)
-    Y = DenseLayer(64).forward(Y)
-    print(Y.shape)
+
+    nn = NeuralNet('')
+    nn.add(Conv2DLayer(10, (3, 3)))
+    nn.add(Flatten())
+    nn.add(DenseLayer(64))
+
+    # nn.train(X, None, batch_size=2)
+    nn.summary()
+    
+    # print(X.shape)
+    # Y = Conv2DLayer(10, (3, 3)).forward(X)
+    # print(Y.shape)
+    # Y = Flatten().forward(Y)
+    # print(Y.shape)
+    # Y = DenseLayer(64).forward(Y)
+    # print(Y.shape)
 
     # Y = np.einsum('adbc->abcd', Y)
     # for i in range(10):

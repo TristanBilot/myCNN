@@ -14,12 +14,11 @@ class NeuralNet():
         splitted_X = np.array_split(X, batch_size)
         self.batches = list(map(lambda x: Batch(len(x), x), splitted_X))
 
-        for i in range(epochs):
+        for _ in range(epochs):
             for batch in self.batches:
                 for layer in self.layers:
-                    X = layer.forward(batch)
+                    X = layer.forward(batch.X)
                 # make backpropagation with X
-        pass
 
     def evaluate(self, X, Y):
         pass
@@ -28,7 +27,11 @@ class NeuralNet():
         pass
 
     def add(self, layer: Layer):
-        self.layers.add(layer)
+        self.layers.append(layer)
+
+    def summary(self):
+        for layer in self.layers:
+            print(layer.shape)
     
     # def _link_layers(self):
     #     for i in range(len(self.layers) - 1):

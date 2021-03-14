@@ -11,7 +11,9 @@ class DenseLayer():
             self.is_shape_initialized = True
             self._init_shape(X)
 
-        return X.dot(self.weights) + self.bias
+        forwarded = X.dot(self.weights) + self.bias
+        self.shape = forwarded.shape
+        return forwarded
 
     def _init_shape(self, X):
         # utiliser une classe pour X après

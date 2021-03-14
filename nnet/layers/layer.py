@@ -4,3 +4,6 @@ class Layer():
 
     def set_output_layer(self, layer):
         pass
+
+    def shape(self):
+        pass
