@@ -1,5 +1,5 @@
 import numpy as np
-from layers import Layer
+from layer import Layer
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))

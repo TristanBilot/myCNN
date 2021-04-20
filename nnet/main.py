@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 import numpy as np
-from layers import *
+from layer import *
 from neural_net import NeuralNet
 import matplotlib.pyplot as plt
 

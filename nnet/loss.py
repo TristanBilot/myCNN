@@ -1,5 +1,5 @@
 import numpy as np
-from layers import Layer
+from layer import Layer
 
 class MeanSquare(Layer):
     def __init__(self, activation: str = ''):
