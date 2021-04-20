@@ -1,9 +1,0 @@
-from .layer import Layer
-from .pooling_layer import PoolingLayer
-
-class MaxPool2D(PoolingLayer):
-    def __init__(self, kernel, strides=(1, 1), activation: str = ''):
-        super().__init__('max', kernel, strides, activation)
-
-    def forward(self, X):
-        return super().forward(X)

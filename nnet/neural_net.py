@@ -1,7 +1,7 @@
 from typing import Tuple, List
-from layers.layer import Layer
-from batch.batch import Batch
-from layers.activation import Activation
+from layers import Layer
+from batch import Batch
+from activations import Activation
 from math import floor
 import numpy as np
 
@@ -40,8 +40,3 @@ class NeuralNet():
         for layer in self.layers:
             print(layer.shape)
     
-    # def _link_layers(self):
-    #     for i in range(len(self.layers) - 1):
-    #         next = self.layers[i + 1]
-    #         next_layer = next.layer.shape[1 if i % 2 == 0 else 0]
-    #         self.layers[i].set_output_layer(next_layer)

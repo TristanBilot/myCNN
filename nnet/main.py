@@ -2,11 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 import numpy as np
-from layers.conv2D import Conv2D
-from layers.flatten import Flatten
-from layers.dense import Dense
-from layers.maxpool2D import MaxPool2D
-from layers.zeropaddinng2D import ZeroPadding2D
+from layers import *
 from neural_net import NeuralNet
 import matplotlib.pyplot as plt
 
@@ -35,7 +31,6 @@ if __name__ == '__main__':
     nn.add(ZeroPadding2D())
     nn.add(Flatten(activation='sigmoid'))
     nn.add(Dense(64))
-
 
     nn.train(X, None, batch_size=2)
     nn.summary()
