@@ -4,27 +4,32 @@ from layer import Layer
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
+def sigmoid_derivative(x):
+    s = sigmoid(x)
+    return s * (1 - s)
+
 def relu(x):
     return np.maximum(0, x)
 
-class Activation(Layer):
-    def __init__(self, activation: str = ''):
-        super().__init__(activation)
-
-    def forward(self, X):
-        if self.activation == '':
-            return X
-        if self.activation == 'sigmoid':
-            return sigmoid(X)
-        if self.activation == 'relu':
-            return relu(X)
+def relu_derivative(x):
+    return 1*(x > 0)
 
 class Sigmoid(Layer):
-    def __init__(self, activation: str = ''):
-        super().__init__(activation)
-
     def forward(self, X):
-        return sigmoid(X)
+        Y = sigmoid(X)
+        self.shape = Y.shape
+        return Y
 
     def backward(self, dy):
-        pass
+        self.gradient = sigmoid_derivative(dy)
+        return dy * self.gradient
+
+class ReLu(Layer):
+    def forward(self, X):
+        Y = relu(X)
+        self.shape = Y.shape
+        return Y
+
+    def backward(self, dy):
+        self.gradient = relu_derivative(dy)
+        return dy * self.gradient
