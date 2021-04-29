@@ -19,6 +19,9 @@ class Layer():
     def update_weights(self, learning_rate):
         self.weights = self.weights - (learning_rate * self.gradient)
 
+    def debug(self, layer, in_shape, out_shape):
+        print(f'{layer}\t ({in_shape}) => {out_shape}')
+
 class Dense(Layer):
     def __init__(self, units: int, activation: str = None):
         self.units = units
@@ -29,22 +32,19 @@ class Dense(Layer):
             self.is_shape_initialized = True
             self._init_shape(X)
 
-
-        
         Y = np.dot(X, self.weights) + self.bias
-        print(X.shape)
-        print(Y.shape)
-        print('---eyeyey')
         self.shape = Y.shape
         self.X = X
+        self.debug('FW: Dense', X.shape, Y.shape)
         return Y
 
     def backward(self, dy):
-        print(self.X.shape)
-        print(dy.shape)
+        # print(self.X.shape)
+        # print(dy.shape)
         dw = np.dot(self.X.T, dy)
         dx = np.dot(dy, self.weights.T)
         self.gradient = dw
+        self.debug('BW: Dense', dy.shape, dx.shape)
         return dx
 
         # self.bias.gradient += np.sum(dy, axis=0, keepdims=True)
@@ -60,13 +60,17 @@ class Flatten(Layer):
     def forward(self, X):
         self.old_shape = X.shape
         batch_size = X.shape[0]
-        forwarded = X.reshape(batch_size, -1)
-        self.shape = forwarded.shape
-        return forwarded
+        Y = X.reshape(batch_size, -1)
+        self.shape = Y.shape
+        self.debug('FW: Flatten', X.shape, Y.shape)
+        return Y
 
     def backward(self, dy):
-        print(f'shape: {self.old_shape} + {dy.shape} ')
+        self.debug('BW: Flatten', dy.shape, self.old_shape)
         return dy.reshape(self.old_shape)
+
+    def update_weights(self, learning_rate):
+        pass
 
 class Conv2D(Layer):
     def __init__(self, nb_filters, kernel=None, strides=(1, 1), activation: str = None):

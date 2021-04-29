@@ -18,11 +18,17 @@ class Sigmoid(Layer):
     def forward(self, X):
         Y = sigmoid(X)
         self.shape = Y.shape
+        self.debug('FW: sigmoid', X.shape, Y.shape)
         return Y
 
     def backward(self, dy):
         self.gradient = sigmoid_derivative(dy)
-        return dy * self.gradient
+        dx = dy * self.gradient
+        self.debug('BW: sigmoid', dy.shape, dx.shape)
+        return dx
+
+    def update_weights(self, learning_rate):
+        pass
 
 class ReLu(Layer):
     def forward(self, X):
@@ -33,3 +39,6 @@ class ReLu(Layer):
     def backward(self, dy):
         self.gradient = relu_derivative(dy)
         return dy * self.gradient
+
+    def update_weights(self, learning_rate):
+        pass

@@ -25,7 +25,7 @@ if __name__ == '__main__':
     #     disp_image(X[i])
 
     # X = np.einsum('abcd->adbc', X)
-    print(X[0].shape)
+    # print(X[0].shape)
 
     nn = NeuralNet()
     # nn.add(Conv2D(10, (3, 3)))
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     nn.add(Flatten())
     nn.add(Dense(10))
 
-    nn.train(X, Y, batch_size=3, loss=MeanSquare())
+    nn.train(X, Y, batch_size=3, loss=MeanSquare(), epochs=10)
     nn.summary()
 
     # Y = np.einsum('adbc->abcd', Y)

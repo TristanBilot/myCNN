@@ -22,19 +22,18 @@ class NeuralNet():
                 for layer in self.layers:
                     X = layer.forward(X)
 
-                self.summary()
+                # self.summary()
 
                 # backward pass
                 dy = loss.forward(X, Y)
                 gradient = loss.backward(Y)
-                print(f'dy =====> ${dy}')
-                print(type(gradient))
-                print(gradient)
+                print(f'Loss =====> ${dy}')
                 for layer in reversed(self.layers):
                     gradient = layer.backward(gradient)
 
                 # update weights with the gradients
                 for layer in self.layers:
+                    # print(layer.__class__.__name__)
                     layer.update_weights(learning_rate)
 
 
